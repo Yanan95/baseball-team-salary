@@ -54,15 +54,18 @@ Merge the new summarized Salaries DataFrame and Teams DataFrame together to crea
 
 ## wrong solution  
 > new=pd.merge(salaries,teams)  
-new.groupby(['yearID','teamID']).sum()  
+new.groupby(['yearID','teamID']).sum()  
 ⚠️ 如果是这样的话，后面的sum会把所有能相加的column都相加，但是这里问的是wins and total salaries,但是wins是不能相加的。  
 
 ## correct solution  
 > totSalaries = salaries.groupby(['yearID','teamID'], as_index=False).sum()  
 joined = pd.merge(totSalaries, teams, how="inner", on=['yearID', 'teamID'])  
-joined.head()  
-⚠️ 这里因为不能在merge之后group然后sum得到total salaries,所以可以先单独的做一个total salaries，即1b得到的表格，和teams表格进行inner合并，合并参考为'on' keyword.  
-⚠️
+joined.head()  
+⚠️ 这里因为不能在merge之后group然后sum得到total salaries,所以可以先单独的做一个total salaries，即1b得到的表格，和teams表格进行inner合并，合并参考为'on' keyword.  
+⚠️如果在合并之前，没有对as_index=False进行设定，或者没有在pivot_table里面注明将yearID和teamID放在columns上，那么这两者将会在index上，则与teams合并的时候就会产生错误。所以需要所有的key都放在columns上进行合并。  
+⚠️一半默认的都是inner merge  
+
+
 
 
 
