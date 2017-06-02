@@ -111,7 +111,7 @@ arrowprops = dict(arrowstyle = '->', facecolor = 'black' , connectionstyle = 'ar
 
 ⚠️annotate的用法 plt.annotate(‘注释内容‘, xy = (0, 1)—— xy设置箭头尖的坐标, xytext = (-4, 50)——设置注释内容显示的起始位置,
     arrowprops ——用来设置箭头  = dict(facecolor = "r", headlength = 10, headwidth = 30, width = 20))  
-    plt.show()  
+> plt.show()  
     
     
     
