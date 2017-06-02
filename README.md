@@ -86,9 +86,10 @@ graphically display the relationship between total wins and total salaries for a
 years = np.arange(2000,2004)  
 ⚠️这里只选取这几年，因为年份太多了，做个简要参考即可  
 for yr in years:  
-    df = joined[joined['yearID'] == yr]
+    df = joined[joined['yearID'] == yr]  
+    ⚠️利用df[][]筛选的时候，第一个【】筛选条件如果是一个key index，需要用df['A']=='a'来表示，即df[df['A']='a']，注意A也需要加引号  
     x=df['salary']/1e6  
-    ⚠️这里1e6是为了同比缩小范围  
+    ⚠️这里1e6是为了同比缩小范围  
     y=df['W']  
     plt.scatter(x,y)  
     plt.title('Wins versus Salaries in year ' + str(yr))  
@@ -97,13 +98,19 @@ for yr in years:
     plt.xlim(0, 180)  
     plt.ylim(30, 130)  
     plt.grid()  
-    ⚠️plt.grid()可以用来添加图表网格线，设置网格线颜色，线形，宽度和透明度  
+    ⚠️plt.grid()可以用来添加图表网格线，设置网格线颜色，线形，宽度和透明度  
     plt.annotate(teamName,   
-        xy = (x[df['teamID'] == teamName] / 1e6,  y[df['teamID'] == teamName]),  
+        xy = (df[df['teamID'] == teamName]['salary'] / 1e6,  df[df['teamID'] == teamName]['W']), 
         xytext = (-20, 20), textcoords = 'offset points', ha = 'right', va = 'bottom',  
         bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),  
-        arrowprops = dict(arrowstyle = '->', facecolor = 'black' , connectionstyle = 'arc3,rad=0'))
+        arrowprops = dict(arrowstyle = '->', facecolor = 'black' , connectionstyle = 'arc3,rad=0'))  
+        ⚠️annotate的用法 plt.annotate(‘注释内容‘, xy = (0, 1)—— xy设置箭头尖的坐标, xytext = (-4, 50)——设置注释内容显示的起始位置,
+             arrowprops ——用来设置箭头  = dict(facecolor = "r", headlength = 10, headwidth = 30, width = 20))  
+    plt.show()  
     
+    
+    
+    
 
 
 
