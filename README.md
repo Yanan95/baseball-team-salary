@@ -67,7 +67,9 @@ new.groupby(['yearID','teamID']).sum()
 ## correct solution  
 > totSalaries = salaries.groupby(['yearID','teamID'], as_index=False).sum()  
 joined = pd.merge(totSalaries, teams, how="inner", on=['yearID', 'teamID'])  
-joined.head()  
+joined.head()  
+
+⚠️as_index=False指的是不会把column名当作index名，让index参数作为排序列；而会单独用0，1，2，3来指序。其实如果from_csv和read_csv差别也就在这里，如果from_csv函数里可以指代as_index= false的话，出来的结果和read_csv是一样的（from_csv不能和as_index连用）  
 ⚠️ 这里因为不能在merge之后group然后sum得到total salaries,所以可以先单独的做一个total salaries，即1b得到的表格，和teams表格进行inner合并，合并参考为'on' keyword.  
 ⚠️如果在合并之前，没有对as_index=False进行设定，或者没有在pivot_table里面注明将yearID和teamID放在columns上，那么这两者将会在index上，则与teams合并的时候就会产生错误。所以需要所有的key都放在columns上进行合并。  
 ⚠️一半默认的都是inner merge
