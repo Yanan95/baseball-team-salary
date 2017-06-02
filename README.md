@@ -48,7 +48,8 @@ Summarize the Salaries DataFrame to show the total salaries for each team for ea
 ⚠️条件筛选时看清楚，一定有个筛选条件和筛选主体。这里的salaries就是筛选主体，each year和each team就是筛选条件，而且这里是total salary即是grouping+aggregation的形式。 两个筛选条件既可以用groupby也可以用pivot table.  
 ## solution 1 groupby 
 > salaries.groupby(['yearID','teamID']).sum()  
-> ⚠️这里是两个筛选条件，所以groupby()里面是一个列表[]，表示两个元素  
+
+⚠️这里是两个筛选条件，所以groupby()里面是一个列表[]，表示两个元素  
 
 ## solution 2 pivot table  
 > salaries.pivot_table(‘salary’, columns= ['yearID','teamID'],aggfunc=sum)  
@@ -62,6 +63,7 @@ Merge the new summarized Salaries DataFrame and Teams DataFrame together to crea
 ## wrong solution  
 > new=pd.merge(salaries,teams)  
 new.groupby(['yearID','teamID']).sum()  
+
 ⚠️ 如果是这样的话，后面的sum会把所有能相加的column都相加，但是这里问的是wins and total salaries,但是wins是不能相加的。  
 
 ## correct solution  
