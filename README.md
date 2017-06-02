@@ -15,7 +15,12 @@ Load in these CSV files from the Sean Lahman's Baseball Database. For this assig
 > team.head()  
 
 ⚠️ head()函数最好加括号，不然会出现格式错乱的情况.  
-⚠️ 这个方法是下载csv到本地，直接读取的。答案是直接从网页读取   
+⚠️ 这个方法是下载csv到本地，直接读取的。答案是直接从网页读取  
+⚠️ from_csv不如read_csv,可以直接改为  
+> salary = pd.read_csv('Salaries.csv')  
+
+⚠️  这样改出来的dataframe不会出现将第一个单词默认为index名，而是会自动把index改为0,1,2,3,4不出现混乱；这样改出来就和答案是一样的了。
+
 ## example solution  
 Use the requests, StringIO and zipfile modules to get from the web.    
 > import requests  
@@ -45,9 +50,11 @@ Summarize the Salaries DataFrame to show the total salaries for each team for ea
 > salaries.groupby(['yearID','teamID']).sum()  
 > ⚠️这里是两个筛选条件，所以groupby()里面是一个列表[]，表示两个元素  
 
-## solution 2 pivot table
-> salaries.pivot_table(salary, columns= ['yearID','teamID'],aggfunc=sum)  
+## solution 2 pivot table  
+> salaries.pivot_table(‘salary’, columns= ['yearID','teamID'],aggfunc=sum)  
+
 ⚠️pivot_table()里面选择columns还是index是根据你想把它俩放在index上还是column上，而与变化之前在什么位置没有关系。如果不加，默认放在index上  
+⚠️注意salary需要➕引号，因为是一个变量
 
 ## probelm 1c  
 Merge the new summarized Salaries DataFrame and Teams DataFrame together to create a new DataFrame showing wins and total salaries for each team for each year year. Show the head of the new merged DataFrame.  
