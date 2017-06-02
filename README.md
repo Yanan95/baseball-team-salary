@@ -84,15 +84,16 @@ graphically display the relationship between total wins and total salaries for a
 ## correct solution  
 > teamName = 'OAK'  
 years = np.arange(2000,2004)  
-⚠️这里只选取这几年，因为年份太多了，做个简要参考即可  
-for yr in years:  
-    df = joined[joined['yearID'] == yr]  
-    
+⚠️这里只选取这几年，因为年份太多了，做个简要参考即可  
+>for yr in years:  
+>    df = joined[joined['yearID'] == yr]  
+
+
     ⚠️利用df[][]筛选的时候，第一个【】筛选条件如果是一个key index，需要用df['A']=='a'来表示，即df[df['A']='a']，注意A也需要加引号  
-    x=df['salary']/1e6  
+   > x=df['salary']/1e6  
    
-    ⚠️这里1e6是为了同比缩小范围  
-    y=df['W']  
+   ⚠️这里1e6是为了同比缩小范围  
+    > y=df['W']  
     plt.scatter(x,y)  
     plt.title('Wins versus Salaries in year ' + str(yr))  
     plt.xlabel('Total Salary (in millions)')  
@@ -102,7 +103,7 @@ for yr in years:
     plt.grid()  
     
     ⚠️plt.grid()可以用来添加图表网格线，设置网格线颜色，线形，宽度和透明度  
-    plt.annotate(teamName,   
+    > plt.annotate(teamName,   
         xy = (df[df['teamID'] == teamName]['salary'] / 1e6,  df[df['teamID'] == teamName]['W']), 
         xytext = (-20, 20), textcoords = 'offset points', ha = 'right', va = 'bottom',  
         bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),  
