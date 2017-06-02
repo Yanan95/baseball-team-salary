@@ -1,4 +1,4 @@
-# baseball-team-salary
+# baseball-team-salary problem 1
 
 ## purpose  
 a. Load in CSV files from the web.  
@@ -76,7 +76,34 @@ joined.head()  
 ⚠️如果在合并之前，没有对as_index=False进行设定，或者没有在pivot_table里面注明将yearID和teamID放在columns上，那么这两者将会在index上，则与teams合并的时候就会产生错误。所以需要所有的key都放在columns上进行合并。  
 ⚠️一半默认的都是inner merge
 
+## problem 1d  
+graphically display the relationship between total wins and total salaries for a given year? and specifically annotate the Oakland baseball team on the plot. Show this plot across multiple years. In which years can you detect a competitive advantage from the Oakland baseball team of using data science? When did this end?  
+⚠️for a given year之后，又要show plot across multiple years，所以最好用for in loop来完成这一步骤  
+⚠️total wins和total salaries两个维度，可以用一般的散点图来表示  
 
+## correct solution  
+> teamName = 'OAK'  
+years = np.arange(2000,2004)  
+⚠️这里只选取这几年，因为年份太多了，做个简要参考即可  
+for yr in years:  
+    df = joined[joined['yearID'] == yr]
+    x=df['salary']/1e6  
+    ⚠️这里1e6是为了同比缩小范围  
+    y=df['W']  
+    plt.scatter(x,y)  
+    plt.title('Wins versus Salaries in year ' + str(yr))  
+    plt.xlabel('Total Salary (in millions)')  
+    plt.ylabel('Wins')  
+    plt.xlim(0, 180)  
+    plt.ylim(30, 130)  
+    plt.grid()  
+    ⚠️plt.grid()可以用来添加图表网格线，设置网格线颜色，线形，宽度和透明度  
+    plt.annotate(teamName,   
+        xy = (x[df['teamID'] == teamName] / 1e6,  y[df['teamID'] == teamName]),  
+        xytext = (-20, 20), textcoords = 'offset points', ha = 'right', va = 'bottom',  
+        bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),  
+        arrowprops = dict(arrowstyle = '->', facecolor = 'black' , connectionstyle = 'arc3,rad=0'))
+    
 
 
 
