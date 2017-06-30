@@ -55,7 +55,8 @@ Summarize the Salaries DataFrame to show the total salaries for each team for ea
 > salaries.pivot_table(‘salary’, columns= ['yearID','teamID'],aggfunc=sum)  
 
 ⚠️pivot_table()里面选择columns还是index是根据你想把它俩放在index上还是column上，而与变化之前在什么位置没有关系。如果不加，默认放在index上  
-⚠️注意salary需要➕引号，因为是一个变量
+⚠️注意salary需要➕引号，因为是一个变量  
+⚠️ pivot_table比groupby多一个筛选主体即’salary’那里
 
 ## probelm 1c  
 Merge the new summarized Salaries DataFrame and Teams DataFrame together to create a new DataFrame showing wins and total salaries for each team for each year year. Show the head of the new merged DataFrame.  
